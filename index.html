@@ -15,7 +15,7 @@
     align-items: center;
     overflow: hidden;
   }
-  .card {
+  .card, .note {
     background: #fff;
     padding: 22px;
     border-radius: 18px;
@@ -45,10 +45,9 @@
     box-shadow: 0 10px 18px rgba(0,0,0,.15);
   }
   .yes { background: linear-gradient(135deg,#00e1a2,#00b3ff); color:#003; }
-  .no  { background: linear-gradient(135deg,#ff6a6a,#ff3b7a); color:#fff; position: relative; }
+  .no  { background: linear-gradient(135deg,#ff6a6a,#ff3b7a); color:#fff; }
   .btn:active { transform: translateY(1px) scale(.98); }
 
-  /* Popup */
   .overlay {
     position: fixed; inset: 0; background: rgba(0,0,0,.75);
     display: none; justify-content: center; align-items: center; z-index: 9999;
@@ -62,11 +61,15 @@
   .close { background:#111; color:#fff; padding:10px 14px; border-radius:999px; border:none; cursor:pointer; }
 
   footer { font-size:.8rem; opacity:.7; margin-top: 6px; }
+
+  .note h2 { color:#ff2f92; margin-bottom:10px; }
+  .note p { line-height:1.5; color:#444; }
 </style>
 </head>
 <body>
 
-  <div class="card">
+  <!-- QUESTION CARD -->
+  <div class="card" id="questionCard">
     <h1>My Maggie (baby don, mieeee, my moonpiee) 💖</h1>
     <div class="from">from your Peanut Butter ❤️</div>
 
@@ -75,10 +78,8 @@
     <h2>Will you be my Valentine? 💘</h2>
 
     <div class="btns">
-      <a id="yesLink" href="#" style="text-decoration:none;">
-        <button class="btn yes" onclick="onYes()">Yes 😍</button>
-      </a>
-      <button id="noBtn" class="btn no" onmouseenter="dodge()" onclick="onNo()">No 😢</button>
+      <button class="btn yes" onclick="onYes()">Yes 😍</button>
+      <button class="btn no" onclick="onNo()">No 😢</button>
     </div>
 
     <footer>psst… no is not really an option 😜</footer>
@@ -98,22 +99,31 @@
     <div class="modal">
       <img src="yes.jpg" alt="yes"/>
       <p>YAYYY! You made my heart do a happy dance 💃🕺💖</p>
-      <button class="close" onclick="closeYes()">Aww 🥹</button>
+      <button class="close" onclick="goToLoveNote()">Read my love note 💌</button>
     </div>
   </div>
 
+  <!-- LOVE NOTE PAGE -->
+  <div class="note" id="loveNote" style="display:none;">
+    <h2>To My Maggie 💌</h2>
+    <p>
+      Hey my Moonpiee, <br><br>
+      I don’t say this enough, but you mean the world to me.  
+      Your smile fixes my worst days, your voice is my comfort,  
+      and your presence makes everything feel lighter.  
+      <br><br>
+      Thank you for being you — for your kindness, your chaos,  
+      your laughter, and all the tiny moments we share.  
+      I choose you today, tomorrow, and all the days after.  
+      <br><br>
+      Forever yours, <br>
+      <strong>Your Peanut Butter 🥜❤️</strong>
+    </p>
+    <br/>
+    <button class="btn yes" onclick="backToStart()">Back to the question 💘</button>
+  </div>
+
 <script>
-  const YES_LINK = "https://example.com"; // change this if you want Yes to open a link
-
-  function dodge() {
-    const b = document.getElementById("noBtn");
-    b.style.position = "fixed";
-    const x = Math.random() * (window.innerWidth - b.offsetWidth);
-    const y = Math.random() * (window.innerHeight - b.offsetHeight);
-    b.style.left = x + "px";
-    b.style.top = y + "px";
-  }
-
   function onNo() {
     document.getElementById("noPopup").style.display = "flex";
   }
@@ -123,11 +133,17 @@
 
   function onYes() {
     document.getElementById("yesPopup").style.display = "flex";
-    const link = document.getElementById("yesLink");
-    link.href = YES_LINK; // optional external link
   }
-  function closeYes() {
+
+  function goToLoveNote() {
     document.getElementById("yesPopup").style.display = "none";
+    document.getElementById("questionCard").style.display = "none";
+    document.getElementById("loveNote").style.display = "block";
+  }
+
+  function backToStart() {
+    document.getElementById("loveNote").style.display = "none";
+    document.getElementById("questionCard").style.display = "block";
   }
 </script>
 
