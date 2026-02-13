@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>My Maggie 💖</title>
+<style>
+  * { box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #ffd6e8, #ff9ecb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .card {
+    background: #fff;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.2);
+    max-width: 360px;
+    width: 92%;
+    text-align: center;
+    animation: pop 0.6s ease;
+  }
+  @keyframes pop { from{transform:scale(.85); opacity:0} to{transform:scale(1); opacity:1} }
+  h1 { margin: 8px 0 4px; color: #ff2f92; font-size: 1.4rem; }
+  .from { color:#ff5fa8; font-weight:600; margin-bottom: 10px; }
+  img.main {
+    width: 100%;
+    border-radius: 14px;
+    margin: 10px 0 14px;
+    object-fit: cover;
+  }
+  .btns { display:flex; gap:12px; justify-content:center; margin-top: 10px; }
+  .btn {
+    border: none;
+    padding: 12px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+    box-shadow: 0 10px 18px rgba(0,0,0,.15);
+  }
+  .yes { background: linear-gradient(135deg,#00e1a2,#00b3ff); color:#003; }
+  .no  { background: linear-gradient(135deg,#ff6a6a,#ff3b7a); color:#fff; position: relative; }
+  .btn:active { transform: translateY(1px) scale(.98); }
+
+  /* Popup */
+  .overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,.75);
+    display: none; justify-content: center; align-items: center; z-index: 9999;
+  }
+  .modal {
+    background: #fff; padding: 14px; border-radius: 16px;
+    max-width: 320px; width: 92%; text-align:center; animation: pop .4s ease;
+  }
+  .modal img { width:100%; border-radius: 12px; margin-bottom: 8px; }
+  .modal p { margin: 6px 0 10px; font-weight: 700; color:#ff2f92; }
+  .close { background:#111; color:#fff; padding:10px 14px; border-radius:999px; border:none; cursor:pointer; }
+
+  footer { font-size:.8rem; opacity:.7; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>My Maggie (baby don, mieeee, my moonpiee) 💖</h1>
+    <div class="from">from your Peanut Butter ❤️</div>
+
+    <img src="intro.jpg" alt="intro" class="main"/>
+
+    <h2>Will you be my Valentine? 💘</h2>
+
+    <div class="btns">
+      <a id="yesLink" href="#" style="text-decoration:none;">
+        <button class="btn yes" onclick="onYes()">Yes 😍</button>
+      </a>
+      <button id="noBtn" class="btn no" onmouseenter="dodge()" onclick="onNo()">No 😢</button>
+    </div>
+
+    <footer>psst… no is not really an option 😜</footer>
+  </div>
+
+  <!-- NO POPUP -->
+  <div id="noPopup" class="overlay">
+    <div class="modal">
+      <img src="no.jpg" alt="no"/>
+      <p>No is not allowed for my Moonpiee 😝❤️</p>
+      <button class="close" onclick="closeNo()">Okay Okay 😅</button>
+    </div>
+  </div>
+
+  <!-- YES POPUP -->
+  <div id="yesPopup" class="overlay">
+    <div class="modal">
+      <img src="yes.jpg" alt="yes"/>
+      <p>YAYYY! You made my heart do a happy dance 💃🕺💖</p>
+      <button class="close" onclick="closeYes()">Aww 🥹</button>
+    </div>
+  </div>
+
+<script>
+  const YES_LINK = "https://example.com"; // change this if you want Yes to open a link
+
+  function dodge() {
+    const b = document.getElementById("noBtn");
+    b.style.position = "fixed";
+    const x = Math.random() * (window.innerWidth - b.offsetWidth);
+    const y = Math.random() * (window.innerHeight - b.offsetHeight);
+    b.style.left = x + "px";
+    b.style.top = y + "px";
+  }
+
+  function onNo() {
+    document.getElementById("noPopup").style.display = "flex";
+  }
+  function closeNo() {
+    document.getElementById("noPopup").style.display = "none";
+  }
+
+  function onYes() {
+    document.getElementById("yesPopup").style.display = "flex";
+    const link = document.getElementById("yesLink");
+    link.href = YES_LINK; // optional external link
+  }
+  function closeYes() {
+    document.getElementById("yesPopup").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
